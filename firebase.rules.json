@@ -1,0 +1,16 @@
+{
+  "rules": {
+    "groups": {
+      "$gid": {
+        ".read": "data.child('users').child(auth.uid).exists()",
+        ".write": "data.child('users').child(auth.uid).child('type').val() === 'admin' || (data.child('users').child(auth.uid).exists() && !newData.child('users').child(auth.uid).exists()) || (!data.child('users').child(auth.uid).exists() && newData.child('users').child(auth.uid).child('type').val() === 'user')"
+      }
+    },
+    "users": {
+      "$userId": {
+        ".read": "auth.uid === $userId",
+        ".write": "auth.uid === $userId"
+      }
+    }
+  }
+}

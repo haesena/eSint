@@ -66,7 +66,7 @@ angular
             })
             .state("groups", {
                 name: 'groups',
-                url: '/groups/{action}',
+                url: '/groups/{action}?gid',
                 controller  : 'groupController',
                 templateUrl : 'views/groups.html',
                 resolve: {

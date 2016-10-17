@@ -11,10 +11,36 @@ angular
             var gRef = firebase.database().ref().child("groups");
             var uRef = firebase.database().ref().child("users").child($rootScope.firebaseUser.uid);
 
+            $state.oldGroup = {};
+
             if($stateParams.action == "create") {
                 $rootScope.menuTitle = "Groups > New";
             } else if($stateParams.action == "manage") {
                 $rootScope.menuTitle = "Groups > Manage";
+            }  else if($stateParams.action == "edit") {
+                $rootScope.menuTitle = "Groups > Edit";
+
+                $firebaseObject(gRef.child($stateParams.gid))
+                    .$bindTo($scope, "editGroup");
+
+                var oldGroup = {};
+                $firebaseArray(gRef.child($stateParams.gid))
+                    .$loaded()
+                    .then(function(group){
+                        for(var i = 0; i < group.length; i++) {
+                            if(group[i].$value == undefined)
+                                continue;
+                            oldGroup[group[i].$id] = group[i].$value;
+                        }
+                    });
+
+                $scope.cancelEdit = function() {
+                    for(var id in oldGroup) {
+                        gRef.child($stateParams.gid).child(id).set(oldGroup[id]);
+                    }
+                    $state.go('groups', { 'action':'manage'});
+                }
+
             } else {
                 var uRef = firebase.database().ref().child("users").child($rootScope.firebaseUser.uid);
                 uRef.child("activeGroup").set($stateParams.action);
@@ -27,7 +53,11 @@ angular
             $scope.createGroup = function() {
 
                 var newUsers = {};
-                newUsers[$rootScope.firebaseUser.uid] = "admin";
+                newUsers[$rootScope.firebaseUser.uid] = {
+                    type: "admin",
+                    name: $rootScope.firebaseUser.displayName,
+                    photo: $rootScope.firebaseUser.photoURL
+                };
 
                 var group = {
                     name: $scope.newName,
@@ -40,10 +70,10 @@ angular
                 $firebaseArray(gRef).$add(group).then(function(ref) {
                     uRef.child("groups/"+ref.key).set("creator");
                     uRef.child("activeGroup").set(ref.key);
-                });
 
-                $rootScope.loadData($rootScope.firebaseUser.uid);
-                $state.go("home");
+                    $rootScope.loadData($rootScope.firebaseUser.uid);
+                    $state.go("home");
+                });
             }
 
             var removeUserFromGroup = function(gid, uid) {
@@ -75,11 +105,13 @@ angular
                         .catch(function(error) {
                             // if the user has no more group-references, delete the active-group flag
                             $firebaseObject(uRef.child("activeGroup")).$remove();
+
+                            $rootScope.loadData($rootScope.firebaseUser.uid);
                             $state.go("home");
                         });
                 }
 
-                // alert(JSON.stringify(uGroups));
+                $rootScope.loadData($rootScope.firebaseUser.uid);
 
             };
 

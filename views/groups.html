@@ -1,5 +1,5 @@
 <md-content layout-padding ng-show="action == 'create'">
-    <form name="newGroup" ng-submit="createGroup()">
+    <form name="newGroup" ng-submit="createGroup()" class="md-whiteframe-4dp sheet">
 
             <md-input-container class="md-block">
                 <label>Name</label>
@@ -15,7 +15,29 @@
             </md-input-container>
 
         <div>
-            <md-button type="submit">Create</md-button>
+            <md-button type="submit" class="formButton">Create</md-button>
+        </div>
+    </form>
+</md-content>
+
+<md-content layout-padding ng-show="action == 'edit'">
+    <form class="md-whiteframe-4dp sheet">
+        <md-input-container class="md-block">
+            <label>Name</label>
+            <input required ng-model="editGroup.name">
+            <div ng-messages="newGroup.newName.$error">
+                <div ng-message="required">This is required.</div>
+            </div>
+        </md-input-container>
+
+        <md-input-container class="md-block">
+            <label>Description</label>
+            <input ng-model="editGroup.description">
+        </md-input-container>
+
+        <div>
+            <md-button class="formButton" ng-click="cancelEdit()">Cancel</md-button>
+            <md-button class="formButton" ui-sref="groups({action: 'manage'})">Ok</md-button>
         </div>
     </form>
 </md-content>
@@ -32,15 +54,18 @@
             <md-toolbar class="md-toolbar-tools md-toolbar-small md-hue-2">
                 <span>{{ g.name }}</span>
                 <span flex></span>
+                <md-button class="md-raised" aria-label="Edit group"  ui-sref="groups({action: 'edit', gid: id})">
+                    Edit group
+                </md-button>
                 <md-button class="md-raised" aria-label="Leave group"  ng-click="leaveGroup(id, $event)">
                     Leave group
                 </md-button>
             </md-toolbar>
             <div class="content">
                 <div><i>{{ g.description }}</i></div>
-                <div class="md-toolbar-tools" ng-repeat="(uid, t) in g.users">
-                    <img src="{{ users[uid].photo }}" class="md-avatar-small">
-                    <label class="display">{{ users[uid].name }} ({{t}})</label>
+                <div class="md-toolbar-tools" ng-repeat="(uid, user) in g.users">
+                    <img src="{{ user.photo }}" class="md-avatar-small">
+                    <label class="display">{{ user.name }} <span ng-hide="user.type != 'admin'">({{user.type}})</span></label>
                 </div>
             </div>
         </md-whiteframe>

@@ -13,14 +13,13 @@ angular
                 $firebaseObject(userRef)
                     .$loaded()
                     .then(function(user){
-                        alert("user loaded: "+ user.name);
                         $scope.user = user;
                         $scope.groups = {};
                         for(var gid in user.groups) {
                             $firebaseObject(firebase.database().ref().child("groups").child(gid))
                                 .$loaded()
                                 .then(function(group){
-                                    $scope.groups[gid]  = group;
+                                    $scope.groups[group.$id]  = group;
                                 });
                         }
                 });
@@ -39,29 +38,12 @@ angular
 
                 if(firebaseUser) {
 
-                    var uRef = firebase.database().ref().child("users");
-
-                    $firebaseObject(uRef)
-                        .$loaded()
-                        .then(function(users) {
-                            if(users[firebaseUser.uid] == undefined) {
-                                var user = {
-                                    'name':firebaseUser.displayName,
-                                    'photo':firebaseUser.photoURL
-                                };
-
-                                uRef.child(firebaseUser.uid).set(user);
-                            } else {
-                                uRef.child(firebaseUser.uid+"/name").set(firebaseUser.displayName);
-                                uRef.child(firebaseUser.uid+"/photo").set(firebaseUser.photoURL);
-                            }
-                        });
-
-                    // var gRef = firebase.database().ref().child("groups");
-                    // $scope.groups = $firebaseObject(gRef);
+                    var uRef = firebase.database().ref().child("users").child(firebaseUser.uid);
+                    uRef.child("name").set(firebaseUser.displayName);
+                    uRef.child("photo").set(firebaseUser.photoURL);
+                    uRef.child("lastLogin").set(new Date().toTimeString());
 
                     $rootScope.loadData(firebaseUser.uid);
-
                 }
             });
 
