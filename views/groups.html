@@ -31,6 +31,10 @@
                 flex-gt-sm="45">
             <md-toolbar class="md-toolbar-tools md-toolbar-small md-hue-2">
                 <span>{{ g.name }}</span>
+                <span flex></span>
+                <md-button class="md-raised" aria-label="Leave group"  ng-click="leaveGroup(id, $event)">
+                    Leave group
+                </md-button>
             </md-toolbar>
             <div class="content">
                 <div><i>{{ g.description }}</i></div>

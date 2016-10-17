@@ -15,6 +15,8 @@
     </md-content>
     <md-content role="newgroup" ng-hide="user.activeGroup" class="main-content">
         <p>You're in no group yet :(</p>
-        <p>Start by <a ui-sref="createGroup">creating a group</a></p>
+        <p>Start by <a ui-sref="groups({action: 'create'})">creating a group</a></p>
     </md-content>
 </div>
+
+{{ userGroups | json }}

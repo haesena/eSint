@@ -22,11 +22,11 @@ angular
                 if(firebaseUser) {
 
                     var uRef = firebase.database().ref().child("users");
-                    $scope.users = $firebaseObject(uRef);
 
-                    $scope.users.$loaded(
-                        function() {
-                            if($scope.users[firebaseUser.uid] == undefined) {
+                    $firebaseObject(uRef)
+                        .$loaded()
+                        .then(function(users) {
+                            if(users[firebaseUser.uid] == undefined) {
                                 var user = {
                                     'name':firebaseUser.displayName,
                                     'photo':firebaseUser.photoURL
@@ -37,9 +37,9 @@ angular
                                 uRef.child(firebaseUser.uid+"/name").set(firebaseUser.displayName);
                                 uRef.child(firebaseUser.uid+"/photo").set(firebaseUser.photoURL);
                             }
-                        }
-                    );
+                        });
 
+                    $scope.users = $firebaseObject(uRef);
                     $scope.user = $firebaseObject(uRef.child(firebaseUser.uid));
 
                     var gRef = firebase.database().ref().child("groups");
