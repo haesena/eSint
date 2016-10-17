@@ -13,7 +13,7 @@ angular
                 $scope.auth.$signOut();
                 // and redirect to the homepage
                 $state.go("home");
-            }
+            };
 
             // any time auth state changes, add the user data to scope
             $scope.auth.$onAuthStateChanged(function(firebaseUser) {
@@ -29,7 +29,7 @@ angular
                             if($scope.users[firebaseUser.uid] == undefined) {
                                 var user = {
                                     'name':firebaseUser.displayName,
-                                    'photo':firebaseUser.photoURL,
+                                    'photo':firebaseUser.photoURL
                                 };
 
                                 uRef.child(firebaseUser.uid).set(user);
@@ -76,11 +76,13 @@ angular
                 {
                     name: 'New Group',
                     state: 'groups({action: "create"})',
-                    type: 'link'
+                    type: 'link',
+                    icon: 'fa fa-plus'
                 },{
                     name: 'Manage Groups',
                     state: 'groups({action: "manage"})',
-                    type: 'link'
+                    type: 'link',
+                    icon: 'fa fa-cog'
                 }
             ];
 

@@ -3,8 +3,37 @@
     border-radius: 50%;
 }
 
+.md-avatar-small {
+    height: 30px;
+    border-radius: 50%;
+}
+
+.display {
+    font-family: Ubuntu, sans-serif;
+    font-size: 14px;
+    padding: 10px;
+}
+
 .main-content {
     padding : 20px;
+}
+
+.content {
+    padding : 10px;
+}
+
+.sheet {
+    border-radius: 5px;
+}
+
+.md-toolbar-small {
+    min-height: 50px;
+    max-height: 50px;
+    height: 50px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
 
 .active { color: red; font-weight: bolder; }
@@ -100,7 +129,7 @@ md-sidenav {
 
 .menu-toggle-list {
     background: #fff;
-    max-height: 300px;
+    /*max-height: 300px;*/
     overflow: hidden;
     position: relative;
     z-index: 1;

@@ -4,8 +4,8 @@
 
 angular
     .module("eSint")
-    .controller('mainController', ["$scope", "$rootScope", "Auth",
-        function($scope, $rootScope, Auth) {
+    .controller('mainController', ["$scope", "$rootScope", "Auth", "$state",
+        function($scope, $rootScope, Auth, $state) {
         // create a message to display in our view
         $scope.message = 'Everyone come and see how good I look!';
         $rootScope.menuTitle = "eSint";
@@ -13,5 +13,6 @@ angular
 
         $scope.logIn = function () {
             $scope.auth.$signInWithPopup('facebook');
+            $state.go("home");
         }
     }]);

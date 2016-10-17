@@ -7,7 +7,11 @@ angular
     .controller('groupController', ["$scope", "$rootScope", "$firebaseArray", "$firebaseObject", "$state", "$stateParams",
         function($scope, $rootScope, $firebaseArray, $firebaseObject, $state, $stateParams) {
 
-            if($stateParams.action != "create" && $stateParams.action != "manage") {
+            if($stateParams.action == "create") {
+                $rootScope.menuTitle = "Groups > New";
+            } else if($stateParams.action == "manage") {
+                $rootScope.menuTitle = "Groups > Manage";
+            } else {
                 var uRef = firebase.database().ref().child("users").child($rootScope.firebaseUser.uid);
                 uRef.child("activeGroup").set($stateParams.action);
                 $state.go("home");
@@ -20,8 +24,8 @@ angular
                 var gRef = firebase.database().ref().child("groups");
                 var uRef = firebase.database().ref().child("users").child($rootScope.firebaseUser.uid);
 
-                newUsers = {};
-                newUsers[$rootScope.firebaseUser.uid] = "creator";
+                var newUsers = {};
+                newUsers[$rootScope.firebaseUser.uid] = "admin";
 
                 var group = {
                     name: $scope.newName,

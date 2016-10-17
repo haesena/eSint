@@ -21,17 +21,25 @@
 </md-content>
 
 <md-content ng-show="action == 'manage'">
-    <div layout="row" layout-padding layout-wrap layout-fill style="padding-bottom: 32px;" ng-cloak>
+    <div layout="row" layout-margin layout-wrap layout-fill style="padding-bottom: 32px;" ng-cloak>
 
         <md-whiteframe
                 ng-repeat="(id, g) in groups"
-                class="md-whiteframe-4dp"
+                class="md-whiteframe-4dp sheet"
                 flex-sm="100"
                 flex-xs="100"
-                flex-gt-sm="50">
-            <span>{{ g.name }}</span>
+                flex-gt-sm="45">
+            <md-toolbar class="md-toolbar-tools md-toolbar-small md-hue-2">
+                <span>{{ g.name }}</span>
+            </md-toolbar>
+            <div class="content">
+                <div><i>{{ g.description }}</i></div>
+                <div class="md-toolbar-tools" ng-repeat="(uid, t) in g.users">
+                    <img src="{{ users[uid].photo }}" class="md-avatar-small">
+                    <label class="display">{{ users[uid].name }} ({{t}})</label>
+                </div>
+            </div>
         </md-whiteframe>
     </div>
-    {{ groups | json }}
 </md-content>
 

@@ -8,7 +8,7 @@
 
 <ul ng-show="isOpen()" id="docs-menu-{{section.name | nospace}}" class="menu-toggle-list">
     <li ng-repeat="(id, g) in section.groups">
-        <menu-link section="{name: g.name, state: 'groups({action: \''+id+'\'})', type: 'link'}" ng-hide="section.activeG == id"></menu-link>
+        <menu-link section="{name: g.name, state: 'groups({action: \''+id+'\'})', type: 'link', icon: 'fa fa-arrow-right'}" ng-hide="section.activeG == id"></menu-link>
     </li>
     <li ng-repeat="page in section.pages">
         <menu-link section="page"></menu-link>
