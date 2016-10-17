@@ -11,8 +11,12 @@ angular
         $rootScope.menuTitle = "eSint";
         $scope.auth = Auth;
 
-        $scope.logIn = function () {
-            $scope.auth.$signInWithPopup('facebook');
+        $scope.logIn = function (type) {
+            if(type == 'facebook') {
+                $scope.auth.$signInWithPopup('facebook');
+            } else if(type == 'google') {
+                $scope.auth.$signInWithPopup('google');
+            }
             $state.go("home");
         }
     }]);

@@ -42,6 +42,7 @@ angular
                     uRef.child("activeGroup").set(ref.key);
                 });
 
+                $rootScope.loadData($rootScope.firebaseUser.uid);
                 $state.go("home");
             }
 
