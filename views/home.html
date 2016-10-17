@@ -1,0 +1,20 @@
+<div ng-hide="$root.firebaseUser">
+    <p>Login using:</p>
+    <ul>
+        <li>
+            Facebook<br>
+            <button ng-click="logIn()">Sign In With Facebook</button>
+        </li>
+        <li>Google</li>
+    </ul>
+
+</div>
+<div ng-show="$root.firebaseUser">
+    <md-content role="navigation" ng-show="user.activeGroup">
+        Hello again, select something in the sidemenu
+    </md-content>
+    <md-content role="newgroup" ng-hide="user.activeGroup" class="main-content">
+        <p>You're in no group yet :(</p>
+        <p>Start by <a ui-sref="createGroup">creating a group</a></p>
+    </md-content>
+</div>

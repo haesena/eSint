@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="eSint App">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+        <title>eSint</title>
+
+        <!-- load Angular and AngularRouting -->
+        <script src="lib/angular.js"></script>
+        <script src="lib/node_modules/angular-ui-router/release/angular-ui-router.js"></script>
+        <script src="lib/node_modules/angular-messages/angular-messages.js"></script>
+
+        <!-- Load Angular Material-->
+        <link rel="stylesheet" href="lib/node_modules/angular-material/angular-material.css">
+        <script src="lib/node_modules/angular-aria/angular-aria.js"></script>
+        <script src="lib/node_modules/angular-animate/angular-animate.js"></script>
+        <script src="lib/node_modules/angular-material/angular-material.js"></script>
+
+        <!-- load Firebase and AngularFire -->
+        <script src="https://www.gstatic.com/firebasejs/3.4.1/firebase.js"></script>
+        <script src="https://cdn.firebase.com/libs/angularfire/2.0.2/angularfire.min.js"></script>
+
+        <!-- Custom stylesheet-->
+        <script data-require="lodash.js@3.5.0" data-semver="3.5.0" src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.5.0/lodash.js"></script>
+        <!--<link href="https://fonts.googleapis.com/css?family=Ubuntu:500,700" rel="stylesheet" type="text/css" />-->
+        <link data-require="font-awesome@4.3.0" data-semver="4.3.0" rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
+        <link rel="stylesheet" href="esint.css">
+
+        <script src="scripts/init.js"></script>
+        <script src="scripts/factory.js"></script>
+        <script src="scripts/routing.js"></script>
+        <script src="scripts/controllers/appController.js"></script>
+        <script src="scripts/controllers/mainController.js"></script>
+        <script src="scripts/controllers/groupController.js"></script>
+        <script src="scripts/controllers/aboutController.js"></script>
+        <script src="scripts/controllers/contactController.js"></script>
+        <script src="scripts/menu/link.directive.js"></script>
+        <script src="scripts/menu/toggle.directive.js"></script>
+    </head>
+    <body ng-app="eSint" ng-cloak ng-controller="appController" layout="row" flex>
+        <md-sidenav ng-show="$root.firebaseUser"
+                    md-component-id='left'
+                    class='fixed-nav md-sidenav-left md-whiteframe-z2'
+                    md-is-locked-open='$mdMedia("gt-md")'>
+            <md-toolbar ui-sref="home">
+                <h3 class='md-toolbar-tools'>eSint</h3>
+            </md-toolbar>
+
+            <md-content role="navigation">
+                <ul class="side-menu">
+                    <li ng-show="user.activeGroup">
+                        <menu-toggle section="{name: groups[user.activeGroup].name, type: 'toggle', pages: pages, groups: groups, activeG: user.activeGroup}"></menu-toggle>
+                    </li>
+                    <li ng-show="user.activeGroup">
+                        <menu-link section="{name: 'About', state: 'about', type: 'link'}"></menu-link>
+                    </li>
+                    <li ng-show="user.activeGroup">
+                        <menu-link section="{name: 'Contact', state: 'contact', type: 'link'}"></menu-link>
+                    </li>
+                </ul>
+            </md-content>
+
+        </md-sidenav>
+
+        <section flex layout='column'>
+            <md-toolbar layout='row' class="md-hue-2">
+                <div class="md-toolbar-tools">
+                    <md-button
+                        hide-gt-md
+                        class="md-icon-button"
+                        aria-label="Settings"
+                        ng-click='toggleSideNav()'
+                        ng-show="$root.firebaseUser"
+                        ng-hide="$mdMedia('gt-md') || $mdSidenav('left').isOpen()">
+                        <md-icon md-svg-icon="img/menu.svg"></md-icon>
+                    </md-button>
+                    <h2>
+                        <span ng-bind="menuTitle"></span>
+                    </h2>
+                    <span flex></span>
+                    <md-button class="md-raised" aria-label="Log Out"  ng-click="logOut()" ng-show="$root.firebaseUser">
+                        Log Out
+                    </md-button>
+                    <img src="{{ $root.firebaseUser.photoURL }}" class="md-avatar" ng-show="$root.firebaseUser">
+                </div>
+            </md-toolbar>
+
+            <md-content flex class="main-content">
+                <div ng-view></div>
+                <ui-view></ui-view>
+            </md-content>
+        </section>
+
+
+
+    </body>
+</html>

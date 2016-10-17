@@ -1,0 +1,37 @@
+<md-content layout-padding ng-show="action == 'create'">
+    <form name="newGroup" ng-submit="createGroup()">
+
+            <md-input-container class="md-block">
+                <label>Name</label>
+                <input required name="newName" ng-model="newName">
+                <div ng-messages="newGroup.newName.$error">
+                    <div ng-message="required">This is required.</div>
+                </div>
+            </md-input-container>
+
+            <md-input-container class="md-block">
+                <label>Description</label>
+                <input name="descr" ng-model="newDescription">
+            </md-input-container>
+
+        <div>
+            <md-button type="submit">Create</md-button>
+        </div>
+    </form>
+</md-content>
+
+<md-content ng-show="action == 'manage'">
+    <div layout="row" layout-padding layout-wrap layout-fill style="padding-bottom: 32px;" ng-cloak>
+
+        <md-whiteframe
+                ng-repeat="(id, g) in groups"
+                class="md-whiteframe-4dp"
+                flex-sm="100"
+                flex-xs="100"
+                flex-gt-sm="50">
+            <span>{{ g.name }}</span>
+        </md-whiteframe>
+    </div>
+    {{ groups | json }}
+</md-content>
+

@@ -1,0 +1,11 @@
+<md-button
+    ui-sref-active="active"
+    ui-sref="{{section.state}}"
+    ng-click="focusSection()">
+    <i class="{{section.icon}}" aria-hidden="true"></i>
+    {{section | humanizeDoc}}
+  <span  class="md-visually-hidden "
+         ng-if="isSelected()">
+    current page
+  </span>
+</md-button>
