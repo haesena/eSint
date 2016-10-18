@@ -1,8 +1,8 @@
 <div ng-hide="$root.firebaseUser">
 
-    <div ng-show="$root.invite">
+    <div ng-show="invite.userName">
         <md-content role="navigation">
-            <p><b>{{ $root.invite.userName }}</b> invited you to join the group <b>{{ $root.invite.groupName }}</b></p>
+            <p><b>{{ invite.userName }}</b> invited you to join the group <b>{{ invite.groupName }}</b></p>
         </md-content>
     </div>
         <div class='loginButtonFB'>

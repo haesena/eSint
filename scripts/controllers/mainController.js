@@ -13,20 +13,35 @@ angular
 
         $scope.logIn = function (type) {
             if(type == 'facebook') {
-                $scope.auth.$signInWithPopup('facebook');
+                $scope.auth.$signInWithPopup('facebook')
+                    .then(function(ref) {
+                        addInvitedUsertoGroup(ref.user.uid, ref.user.displayName, ref.user.photoURL);
+                    });
             } else if(type == 'google') {
-                $scope.auth.$signInWithPopup('google');
+                $scope.auth.$signInWithPopup('google')
+                    .then(function(ref) {
+                        addInvitedUsertoGroup(ref.user.uid, ref.user.displayName, ref.user.photoURL);
+                    });
             }
-
-            if($scope.invite != undefined) {
-                var uRef = firebase.database().ref().child("users").child($rootScope.firebaseUser.uid);
-                uRef.child("groups/"+$scope.invite.group).set("invite");
-                uRef.child("activeGroup").set($scope.invite.group);
-
-                $rootScope.loadData($rootScope.firebaseUser.uid);
-            }
-
             $state.go("home");
+        }
+
+        var addInvitedUsertoGroup = function(uid, newName, newPhoto) {
+            var uRef = firebase.database().ref().child("users").child(uid);
+            uRef.child("groups/"+$scope.invite.group).set("invite");
+            uRef.child("activeGroup").set($scope.invite.group);
+
+            var gRef = firebase.database().ref().child("groups").child($scope.invite.group);
+
+            var newUser = {
+                type: "user",
+                name: newName,
+                photo: newPhoto
+            }
+
+            gRef.child("users/"+uid).set(newUser);
+
+            // $rootScope.loadData(uid);
         }
 
         if($stateParams.inviteId !== undefined) {

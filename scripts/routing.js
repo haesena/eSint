@@ -22,7 +22,7 @@ angular
 
         $stateProvider
             .state("home", {
-                url: '/home',
+                url: '/home?invite',
                 controller  : 'mainController',
                 templateUrl : 'views/home.html',
                 resolve: {

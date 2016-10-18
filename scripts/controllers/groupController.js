@@ -71,7 +71,7 @@ angular
                     uRef.child("groups/"+ref.key).set("creator");
                     uRef.child("activeGroup").set(ref.key);
 
-                    $rootScope.loadData($rootScope.firebaseUser.uid);
+                    // $rootScope.loadData($rootScope.firebaseUser.uid);
                     $state.go("home");
                 });
             }
@@ -173,12 +173,12 @@ angular
                             // if the user has no more group-references, delete the active-group flag
                             $firebaseObject(uRef.child("activeGroup")).$remove();
 
-                            $rootScope.loadData($rootScope.firebaseUser.uid);
+                            // $rootScope.loadData($rootScope.firebaseUser.uid);
                             $state.go("home");
                         });
                 }
 
-                $rootScope.loadData($rootScope.firebaseUser.uid);
+                // $rootScope.loadData($rootScope.firebaseUser.uid);
 
             };
 

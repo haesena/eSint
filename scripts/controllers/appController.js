@@ -4,26 +4,26 @@
 
 angular
     .module("eSint")
-    .controller("appController", ["$scope", "$rootScope", "$state", "Auth", "$firebaseArray", "$firebaseObject", '$mdSidenav', "menu",
-        function($scope, $rootScope, $state, Auth, $firebaseArray, $firebaseObject, $mdSidenav, menu) {
+    .controller("appController", ["$scope", "$rootScope", "$state", "Auth", "$firebaseArray", "$firebaseObject", '$mdSidenav', "menu", "User",
+        function($scope, $rootScope, $state, Auth, $firebaseArray, $firebaseObject, $mdSidenav, menu, User) {
             $scope.auth = Auth;
 
-            $rootScope.loadData = function(uid) {
-                var userRef = firebase.database().ref().child("users").child(uid);
-                $firebaseObject(userRef)
-                    .$loaded()
-                    .then(function(user){
-                        $scope.user = user;
-                        $scope.groups = {};
-                        for(var gid in user.groups) {
-                            $firebaseObject(firebase.database().ref().child("groups").child(gid))
-                                .$loaded()
-                                .then(function(group){
-                                    $scope.groups[group.$id]  = group;
-                                });
-                        }
-                });
-            }
+            // $rootScope.loadData = function(uid) {
+            //     var userRef = firebase.database().ref().child("users").child(uid);
+            //     $firebaseObject(userRef)
+            //         .$loaded()
+            //         .then(function(user){
+            //             $scope.user = user;
+            //             $scope.groups = {};
+            //             for(var gid in user.groups) {
+            //                 $firebaseObject(firebase.database().ref().child("groups").child(gid))
+            //                     .$loaded()
+            //                     .then(function(group){
+            //                         $scope.groups[group.$id]  = group;
+            //                     });
+            //             }
+            //     });
+            // }
 
             $scope.logOut = function() {
                 // log out the user
@@ -37,13 +37,14 @@ angular
                 $rootScope.firebaseUser = firebaseUser;
 
                 if(firebaseUser) {
-
                     var uRef = firebase.database().ref().child("users").child(firebaseUser.uid);
                     uRef.child("name").set(firebaseUser.displayName);
                     uRef.child("photo").set(firebaseUser.photoURL);
                     uRef.child("lastLogin").set(new Date().toTimeString());
 
-                    $rootScope.loadData(firebaseUser.uid);
+                    $scope.user = $firebaseObject(uRef);
+                    var userObj = User(firebaseUser.uid);
+                    $scope.userObj = userObj;
                 }
             });
 

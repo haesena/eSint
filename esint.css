@@ -37,6 +37,8 @@ form.sheet > md-button {
     border-radius: 5px;
     background-color: #3B5998;
     color: white;
+    padding-left: 30px;
+    padding-right: 30px;
 }
 .loginButtonFB > button:hover {
     color: black;
@@ -47,6 +49,8 @@ form.sheet > md-button {
     border-radius: 5px;
     background-color: #db3236;
     color: white;
+    padding-left: 30px;
+    padding-right: 30px;
 }
 .loginButtonG > button:hover {
     color: black;

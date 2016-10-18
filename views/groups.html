@@ -54,10 +54,10 @@
             <md-toolbar class="md-toolbar-tools md-toolbar-small md-hue-2">
                 <span>{{ g.name }}</span>
                 <span flex></span>
-                <md-button class="md-raised" aria-label="Edit group"  ng-click="inviteGroup(id, g.name)">
+                <md-button class="md-raised" aria-label="Edit group"  ng-click="inviteGroup(id, g.name)" ng-show="g.users[$root.firebaseUser.uid].type === 'admin'">
                     Invite
                 </md-button>
-                <md-button class="md-raised" aria-label="Edit group"  ui-sref="groups({action: 'edit', gid: id})">
+                <md-button class="md-raised" aria-label="Edit group"  ui-sref="groups({action: 'edit', gid: id})" ng-show="g.users[$root.firebaseUser.uid].type === 'admin'">
                     Edit group
                 </md-button>
                 <md-button class="md-raised" aria-label="Leave group"  ng-click="leaveGroup(id, $event)">

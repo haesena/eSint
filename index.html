@@ -33,6 +33,7 @@
 
         <script src="scripts/init.js"></script>
         <script src="scripts/factory.js"></script>
+        <script src="scripts/services/User.js"></script>
         <script src="scripts/routing.js"></script>
         <script src="scripts/controllers/appController.js"></script>
         <script src="scripts/controllers/mainController.js"></script>
@@ -94,9 +95,8 @@
                 <div ng-view></div>
                 <ui-view></ui-view>
             </md-content>
-            {{ user | json }}<br><br>
+            groups: {{ userObj.getGroups() | json }}<br><br>
 
-            {{ groups | json }}
         </section>
 
 
