@@ -4,8 +4,8 @@
 
 angular
     .module("eSint")
-    .controller('groupController', ["$scope", "$rootScope", "$firebaseArray", "$firebaseObject", "$state", "$stateParams", "$mdDialog",
-        function($scope, $rootScope, $firebaseArray, $firebaseObject, $state, $stateParams, $mdDialog) {
+    .controller('groupController', ["$scope", "$rootScope", "$firebaseArray", "$firebaseObject", "$state", "$stateParams", "$mdDialog", "$mdPanel", "$location",
+        function($scope, $rootScope, $firebaseArray, $firebaseObject, $state, $stateParams, $mdDialog, $mdPanel, $location) {
 
             // References for groups and user
             var gRef = firebase.database().ref().child("groups");
@@ -76,6 +76,73 @@ angular
                 });
             }
 
+            $scope.inviteGroup = function(gid, gName) {
+                var iRef = firebase.database().ref().child("invites");
+
+                $firebaseObject(iRef)
+                    .$loaded()
+                    .then(function(invites){
+
+                        var found = false;
+                        var newInvite = {
+                            user: $rootScope.firebaseUser.uid,
+                            userName: $rootScope.firebaseUser.displayName,
+                            group: gid,
+                            groupName: gName
+                        };
+
+                        for(var iid in invites) {
+                            if(invites[iid] == undefined)
+                                continue;
+                            if(invites[iid].group == newInvite.group && invites[iid].user == newInvite.user) {
+                                found = true;
+                                break;
+                            }
+                        }
+
+                        if(found) {
+                            $scope.showInvite(iid);
+                        } else {
+                            $firebaseArray(iRef).$add(newInvite).then(function(ref) {
+                                $scope.showInvite(ref.key);
+                            });
+                        }
+
+                    });
+
+            }
+
+            $scope.showInvite = function(iid) {
+
+                var inviteURL = $location.absUrl().split('?')[0];
+                inviteURL = inviteURL.replace("groups/manage", "invite/"+iid);
+
+                var position = $mdPanel.newPanelPosition()
+                    .absolute()
+                    .center();
+
+                var config = {
+                    attachTo: angular.element(document.body),
+                    controller: PanelDialogCtrl,
+                    controllerAs: 'ctrl',
+                    disableParentScroll: this.disableParentScroll,
+                    templateUrl: 'partials/invite.tmpl.html',
+                    hasBackdrop: true,
+                    panelClass: 'demo-dialog-example',
+                    position: position,
+                    trapFocus: true,
+                    zIndex: 150,
+                    clickOutsideToClose: true,
+                    escapeToClose: true,
+                    focusOnOpen: true,
+                    locals: {
+                        'inviteURL': inviteURL
+                    },
+                };
+
+                $mdPanel.open(config);
+            }
+
             var removeUserFromGroup = function(gid, uid) {
                 // delete the user-reference on the group
                 $firebaseObject(gRef.child(gid).child("users").child(uid)).$remove();
@@ -133,3 +200,15 @@ angular
             };
 
         }]);
+
+function PanelDialogCtrl(mdPanelRef) {
+    this._mdPanelRef = mdPanelRef;
+}
+
+PanelDialogCtrl.prototype.closeDialog = function() {
+    var panelRef = this._mdPanelRef;
+
+    panelRef && panelRef.close().then(function() {
+        panelRef.destroy();
+    });
+};

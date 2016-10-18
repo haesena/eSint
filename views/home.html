@@ -1,16 +1,28 @@
 <div ng-hide="$root.firebaseUser">
-    <p>Login using:</p>
-    <ul>
-        <li>
-            Facebook<br>
-            <button ng-click="logIn('facebook')">Sign In With Facebook</button>
-        </li>
-        <li>Google<br>
-            <button ng-click="logIn('google')">Sign In With Google</button>
-        </li>
-    </ul>
 
+    <div ng-show="$root.invite">
+        <md-content role="navigation">
+            <p><b>{{ $root.invite.userName }}</b> invited you to join the group <b>{{ $root.invite.groupName }}</b></p>
+        </md-content>
+    </div>
+        <div class='loginButtonFB'>
+            <md-button ng-click="logIn('facebook')">
+                <i class="fa fa-facebook-official" aria-hidden="true"></i>&nbsp;&nbsp;
+                <span>
+                    Login with Facebook
+                </span>
+            </md-button>
+        </div>
+        <div class='loginButtonG'>
+            <md-button ng-click="logIn('google')">
+                <i class="fa fa-google" aria-hidden="true"></i>&nbsp;&nbsp;
+                <span>
+                    Login with Google
+                </span>
+            </md-button>
+        </div>
 </div>
+
 <div ng-show="$root.firebaseUser">
     <md-content role="navigation" ng-show="user.activeGroup">
         Hello again, select something in the sidemenu
@@ -20,5 +32,3 @@
         <p>Start by <a ui-sref="groups({action: 'create'})">creating a group</a></p>
     </md-content>
 </div>
-
-{{ userGroups | json }}

@@ -77,11 +77,13 @@ angular
                         // If the promise is rejected, it will throw a $stateChangeError (see above)
                         return Auth.$requireSignIn();
                     }],
-
-                    gid: function() {
-
-                    }
                 }
+            })
+            .state("invite", {
+                name: 'groups',
+                url: '/invite/{inviteId}',
+                controller  : 'mainController',
+                templateUrl : 'views/home.html',
             });
 
 }]);

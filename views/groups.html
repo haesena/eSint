@@ -54,6 +54,9 @@
             <md-toolbar class="md-toolbar-tools md-toolbar-small md-hue-2">
                 <span>{{ g.name }}</span>
                 <span flex></span>
+                <md-button class="md-raised" aria-label="Edit group"  ng-click="inviteGroup(id, g.name)">
+                    Invite
+                </md-button>
                 <md-button class="md-raised" aria-label="Edit group"  ui-sref="groups({action: 'edit', gid: id})">
                     Edit group
                 </md-button>
