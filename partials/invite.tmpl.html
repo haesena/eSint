@@ -1,0 +1,20 @@
+<div role="dialog" aria-label="Eat me!" layout="column" layout-align="center center">
+    <md-toolbar class="md-toolbar-small md-hue-2">
+        <div class="md-toolbar-tools">
+            <h2>Invite to group {{ctrl.name}}</h2>
+        </div>
+    </md-toolbar>
+
+    <div class="demo-dialog-content">
+        <p>
+            Share the following URL with your friends to invite them to the group :<br><br>
+            <a target="_blank" href="{{ctrl.inviteURL}}">{{ctrl.inviteURL}}</a>
+        </p>
+    </div>
+
+    <div layout="row" class="demo-dialog-button">
+        <md-button md-autofocus flex class="md-primary" ng-click="ctrl.closeDialog()">
+            Close
+        </md-button>
+    </div>
+</div>
