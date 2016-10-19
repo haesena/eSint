@@ -44,7 +44,7 @@
         <script src="scripts/menu/toggle.directive.js"></script>
     </head>
     <body ng-app="eSint" ng-cloak ng-controller="appController" layout="row" flex>
-        <md-sidenav ng-show="$root.firebaseUser"
+        <md-sidenav ng-show="userObj.isLoaded()"
                     md-component-id='left'
                     class='fixed-nav md-sidenav-left md-whiteframe-z2'
                     md-is-locked-open='$mdMedia("gt-md")'>
@@ -54,13 +54,13 @@
 
             <md-content role="navigation">
                 <ul class="side-menu">
-                    <li ng-show="user.activeGroup">
-                        <menu-toggle section="{name: groups[user.activeGroup].name, type: 'toggle', pages: pages, groups: groups, activeG: user.activeGroup}"></menu-toggle>
+                    <li ng-show="userObj.activeGroup">
+                        <menu-toggle section="{name: userGroups[userObj.activeGroup].name, type: 'toggle', pages: pages, groups: userGroups, activeG: userObj.activeGroup}"></menu-toggle>
                     </li>
-                    <li ng-show="user.activeGroup">
+                    <li ng-show="userObj.activeGroup">
                         <menu-link section="{name: 'About', state: 'about', type: 'link'}"></menu-link>
                     </li>
-                    <li ng-show="user.activeGroup">
+                    <li ng-show="userObj.activeGroup">
                         <menu-link section="{name: 'Contact', state: 'contact', type: 'link'}"></menu-link>
                     </li>
                 </ul>
@@ -76,7 +76,7 @@
                         class="md-icon-button"
                         aria-label="Settings"
                         ng-click='toggleSideNav()'
-                        ng-show="$root.firebaseUser"
+                        ng-show="userObj.isLoaded()"
                         ng-hide="$mdMedia('gt-md') || $mdSidenav('left').isOpen()">
                         <md-icon md-svg-icon="img/menu.svg"></md-icon>
                     </md-button>
@@ -84,10 +84,10 @@
                         <span ng-bind="menuTitle"></span>
                     </h2>
                     <span flex></span>
-                    <md-button class="md-raised" aria-label="Log Out"  ng-click="logOut()" ng-show="$root.firebaseUser">
+                    <md-button class="md-raised" aria-label="Log Out"  ng-click="logOut()" ng-show="userObj.isLoaded()">
                         Log Out
                     </md-button>
-                    <img src="{{ $root.firebaseUser.photoURL }}" class="md-avatar" ng-show="$root.firebaseUser">
+                    <img src="{{ userObj.photo }}" class="md-avatar" ng-show="userObj.isLoaded()">
                 </div>
             </md-toolbar>
 
@@ -95,11 +95,8 @@
                 <div ng-view></div>
                 <ui-view></ui-view>
             </md-content>
-            groups: {{ userObj.getGroups() | json }}<br><br>
-
+            {{ userGroups | json }}
         </section>
-
-
 
     </body>
 </html>

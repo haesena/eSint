@@ -8,23 +8,6 @@ angular
         function($scope, $rootScope, $state, Auth, $firebaseArray, $firebaseObject, $mdSidenav, menu, User) {
             $scope.auth = Auth;
 
-            // $rootScope.loadData = function(uid) {
-            //     var userRef = firebase.database().ref().child("users").child(uid);
-            //     $firebaseObject(userRef)
-            //         .$loaded()
-            //         .then(function(user){
-            //             $scope.user = user;
-            //             $scope.groups = {};
-            //             for(var gid in user.groups) {
-            //                 $firebaseObject(firebase.database().ref().child("groups").child(gid))
-            //                     .$loaded()
-            //                     .then(function(group){
-            //                         $scope.groups[group.$id]  = group;
-            //                     });
-            //             }
-            //     });
-            // }
-
             $scope.logOut = function() {
                 // log out the user
                 $scope.auth.$signOut();
@@ -42,8 +25,7 @@ angular
                     uRef.child("photo").set(firebaseUser.photoURL);
                     uRef.child("lastLogin").set(new Date().toTimeString());
 
-                    $scope.user = $firebaseObject(uRef);
-                    var userObj = User(firebaseUser.uid);
+                    var userObj = User(firebaseUser.uid, $scope);
                     $scope.userObj = userObj;
                 }
             });

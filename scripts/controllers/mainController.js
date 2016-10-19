@@ -4,8 +4,8 @@
 
 angular
     .module("eSint")
-    .controller('mainController', ["$scope", "$rootScope", "Auth", "$state", "$stateParams", "$firebaseArray", "$firebaseObject",
-        function($scope, $rootScope, Auth, $state, $stateParams, $firebaseArray, $firebaseObject) {
+    .controller('mainController', ["$scope", "$rootScope", "Auth", "$state", "$stateParams", "$firebaseArray", "$firebaseObject", "$window",
+        function($scope, $rootScope, Auth, $state, $stateParams, $firebaseArray, $firebaseObject, $window) {
         // create a message to display in our view
         $scope.message = 'Everyone come and see how good I look!';
         $rootScope.menuTitle = "eSint";
@@ -15,12 +15,12 @@ angular
             if(type == 'facebook') {
                 $scope.auth.$signInWithPopup('facebook')
                     .then(function(ref) {
-                        addInvitedUsertoGroup(ref.user.uid, ref.user.displayName, ref.user.photoURL);
+                        // addInvitedUsertoGroup(ref.user.uid, ref.user.displayName, ref.user.photoURL);
                     });
             } else if(type == 'google') {
                 $scope.auth.$signInWithPopup('google')
                     .then(function(ref) {
-                        addInvitedUsertoGroup(ref.user.uid, ref.user.displayName, ref.user.photoURL);
+                        // addInvitedUsertoGroup(ref.user.uid, ref.user.displayName, ref.user.photoURL);
                     });
             }
             $state.go("home");
