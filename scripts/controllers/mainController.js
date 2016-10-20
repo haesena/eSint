@@ -26,23 +26,23 @@ angular
             $state.go("home");
         }
 
-        var addInvitedUsertoGroup = function(uid, newName, newPhoto) {
-            var uRef = firebase.database().ref().child("users").child(uid);
-            uRef.child("groups/"+$scope.invite.group).set("invite");
-            uRef.child("activeGroup").set($scope.invite.group);
-
-            var gRef = firebase.database().ref().child("groups").child($scope.invite.group);
-
-            var newUser = {
-                type: "user",
-                name: newName,
-                photo: newPhoto
-            }
-
-            gRef.child("users/"+uid).set(newUser);
-
-            // $rootScope.loadData(uid);
-        }
+        // var addInvitedUsertoGroup = function(uid, newName, newPhoto) {
+        //     var uRef = firebase.database().ref().child("users").child(uid);
+        //     uRef.child("groups/"+$scope.invite.group).set("invite");
+        //     uRef.child("activeGroup").set($scope.invite.group);
+        //
+        //     var gRef = firebase.database().ref().child("groups").child($scope.invite.group);
+        //
+        //     var newUser = {
+        //         type: "user",
+        //         name: newName,
+        //         photo: newPhoto
+        //     }
+        //
+        //     gRef.child("users/"+uid).set(newUser);
+        //
+        //     // $rootScope.loadData(uid);
+        // }
 
         if($stateParams.inviteId !== undefined) {
             var iRef = firebase.database().ref().child("invites");

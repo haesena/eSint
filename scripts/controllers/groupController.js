@@ -42,8 +42,7 @@ angular
                 }
 
             } else {
-                var uRef = firebase.database().ref().child("users").child($rootScope.firebaseUser.uid);
-                uRef.child("activeGroup").set($stateParams.action);
+                $scope.userObj.activeGroup = $stateParams.action;
                 $state.go("home");
             }
 
@@ -70,7 +69,7 @@ angular
                 $firebaseArray(gRef).$add(group).then(function(ref) {
                     uRef.child("groups/"+ref.key).set("creator");
                     uRef.child("activeGroup").set(ref.key);
-
+                    
                     $state.go("home");
                 });
             }
