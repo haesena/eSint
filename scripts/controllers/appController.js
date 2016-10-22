@@ -20,12 +20,23 @@ angular
                 $rootScope.firebaseUser = firebaseUser;
 
                 if(firebaseUser) {
+
                     var uRef = firebase.database().ref().child("users").child(firebaseUser.uid);
                     uRef.child("name").set(firebaseUser.displayName);
                     uRef.child("photo").set(firebaseUser.photoURL);
                     uRef.child("lastLogin").set(new Date().toTimeString());
-
+                    
                     var userObj = User(firebaseUser.uid, $scope);
+
+                    if($rootScope.inviteId !== undefined) {
+                        userObj.$loaded()
+                            .then(function() {
+                                userObj.consumeInvite($rootScope.inviteId);
+                                $state.go("home");
+                            });
+
+                    }
+
                     $scope.userObj = userObj;
                 }
             });

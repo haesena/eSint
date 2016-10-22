@@ -26,10 +26,7 @@ angular
                 controller  : 'mainController',
                 templateUrl : 'views/home.html',
                 resolve: {
-                    // controller will not be loaded until $waitForSignIn resolves
-                    // Auth refers to our $firebaseAuth wrapper in the factory below
                     "currentAuth": ["Auth", function(Auth) {
-                        // $waitForSignIn returns a promise so the resolve waits for it to complete
                         return Auth.$waitForSignIn();
                     }]
                 }
@@ -40,11 +37,7 @@ angular
                 controller  : 'aboutController',
                 templateUrl : 'views/about.html',
                 resolve: {
-                    // controller will not be loaded until $requireSignIn resolves
-                    // Auth refers to our $firebaseAuth wrapper in the factory below
                     "currentAuth": ["Auth", function(Auth) {
-                        // $requireSignIn returns a promise so the resolve waits for it to complete
-                        // If the promise is rejected, it will throw a $stateChangeError (see above)
                         return Auth.$requireSignIn();
                     }]
                 }
@@ -55,11 +48,7 @@ angular
                 controller  : 'contactController',
                 templateUrl : 'views/contact.html',
                 resolve: {
-                    // controller will not be loaded until $requireSignIn resolves
-                    // Auth refers to our $firebaseAuth wrapper in the factory below
                     "currentAuth": ["Auth", function(Auth) {
-                        // $requireSignIn returns a promise so the resolve waits for it to complete
-                        // If the promise is rejected, it will throw a $stateChangeError (see above)
                         return Auth.$requireSignIn();
                     }]
                 }
@@ -70,11 +59,7 @@ angular
                 controller  : 'groupController',
                 templateUrl : 'views/groups.html',
                 resolve: {
-                    // controller will not be loaded until $requireSignIn resolves
-                    // Auth refers to our $firebaseAuth wrapper in the factory below
                     "currentAuth": ["Auth", function(Auth) {
-                        // $requireSignIn returns a promise so the resolve waits for it to complete
-                        // If the promise is rejected, it will throw a $stateChangeError (see above)
                         return Auth.$requireSignIn();
                     }],
                 }
@@ -84,6 +69,23 @@ angular
                 url: '/invite/{inviteId}',
                 controller  : 'mainController',
                 templateUrl : 'views/home.html',
+                resolve: {
+                    inviteId: function($stateParams, $rootScope) {
+                        $rootScope.inviteId = $stateParams.inviteId;
+                        return $stateParams.inviteId;
+                    }
+                }
+            })
+            .state("myWishlist", {
+                name: 'myWishlist',
+                url: '/myWishlist',
+                controller  : 'wishesController',
+                templateUrl : 'views/wishes.html',
+                resolve: {
+                    "currentAuth": ["Auth", function(Auth) {
+                        return Auth.$requireSignIn();
+                    }],
+                }
             });
 
 }]);

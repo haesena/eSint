@@ -24,8 +24,11 @@
 </div>
 
 <div ng-show="userObj.isLoaded()">
+    Hello <b>{{ userObj.name }}</b>!
     <md-content role="navigation" ng-show="userObj.activeGroup">
-        Hello again, select something in the sidemenu
+        <p ng-hide="myWishlist.length">
+            Start by creating your wishlist!
+        </p>
     </md-content>
     <md-content role="newgroup" ng-hide="userObj.activeGroup" class="main-content">
         <p>You're in no group yet :(</p>
