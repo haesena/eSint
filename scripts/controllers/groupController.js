@@ -42,7 +42,7 @@ angular
                 }
 
             } else {
-                $scope.userObj.activeGroup = $stateParams.action;
+                $scope.userObj.set("activeGroup", $stateParams.action);
                 $state.go("home");
             }
 
@@ -158,7 +158,7 @@ angular
                     .cancel('No');
 
                 $mdDialog.show(confirm).then(function() {
-                    $scope.userObj.removeGroup(gid);
+                    $scope.userObj.leaveGroup(gid);
                 }, function() {
                 });
             };
