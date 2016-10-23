@@ -1,0 +1,72 @@
+
+<md-content>
+    <div layout="row" layout-margin layout-wrap layout-fill style="padding-bottom: 32px;" ng-cloak>
+        <md-whiteframe class="md-whiteframe-4dp sheet"
+                       flex-sm="100"
+                       flex-xs="100"
+                       flex-gt-sm="50">
+            <md-toolbar class="md-toolbar-tools md-toolbar-small md-hue-2">
+                <span>{{ myWishlist.name }}</span>
+                <span flex></span>
+            </md-toolbar>
+            <div class="content">
+                <div ng-hide="myWishlist.wishes">
+                    Your first wish:
+                </div>
+
+                <div ng-show="myWishlist.wishes">
+                    <md-list class="md-dense" flex>
+                        <md-list-item ng-repeat="wish in myWishlist.wishes">
+                            <p>{{ wish.name }}</p>
+                            <p ng-show="wish.link"><a href="{{ wish.link }}" target="_blank">Link</a></p>
+                            <!--<img ng-src="{{todos[0].face}}?20" class="md-avatar" alt="{{todos[0].who}}" />-->
+                            <!--<div class="md-list-item-text">-->
+                                <!---->
+                                <!---->
+                            <!--</div>-->
+                        </md-list-item>
+                    </md-list>
+
+                    <md-button class="md-fab md-primary md-mini" aria-label="Link" ng-click="showForm = true;" ng-hide="showForm">
+                        <md-tooltip md-direction="right">
+                            New wish
+                        </md-tooltip>
+                        <i class="fa fa-plus" aria-hidden="true"></i>
+                    </md-button>
+                </div>
+
+                <form name="wish" ng-submit="createWish()" ng-show="showForm || myWishlist.wishes === undefined">
+                    <div layout="row">
+                        <md-input-container class="md-block" flex>
+                            <label>Wish</label>
+                            <input required ng-model="newWish.name" name="name">
+                            <div ng-messages="wish.name.$error">
+                                <div ng-message="required">This is required.</div>
+                            </div>
+                        </md-input-container>
+                        <md-button class="md-fab md-primary md-mini" aria-label="Link" ng-click="toggleLink()">
+                            <md-tooltip md-direction="left">
+                                Add link
+                            </md-tooltip>
+                            <i class="fa fa-link" aria-hidden="true"></i>
+                        </md-button>
+                    </div>
+
+                    <md-input-container md-no-float class="md-block" ng-show="showLink">
+                        <label>Link</label>
+                        <input ng-model="newWish.link" type="url" name="link">
+                        <div ng-messages="wish.link.$error">
+                            <div ng-message="url">Not a valid URL (ex: http://google.com, https://amazon.com).</div>
+                        </div>
+                    </md-input-container>
+
+                    <div>
+                        <md-button type="submit">Submit</md-button>
+                        <md-button ng-click="cancel()">Cancel</md-button>
+                    </div>
+                </form>
+            </div>
+        </md-whiteframe>
+    </div>
+    {{ myWishlist.wishes | json }}
+</md-content>

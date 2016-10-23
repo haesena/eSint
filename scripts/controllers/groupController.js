@@ -17,6 +17,7 @@ angular
                 $rootScope.menuTitle = "Groups > New";
             } else if($stateParams.action == "manage") {
                 $rootScope.menuTitle = "Groups > Manage";
+                $scope.isOpen = false;
             }  else if($stateParams.action == "edit") {
                 $rootScope.menuTitle = "Groups > Edit";
 

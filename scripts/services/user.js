@@ -6,7 +6,7 @@
  */
 angular
     .module("eSint")
-    .factory('User', function ($firebaseObject, $firebase, $timeout) {
+    .factory('User', function ($firebaseObject, $firebaseArray, $firebase, $timeout, Wishlist) {
 
         var $theScope;
 
@@ -108,7 +108,7 @@ angular
         return function(uid, $scope) {
             $theScope = $scope;
             $theScope.userGroups = {};
-            $theScope.myWishlist = [];
+            $theScope.myWishlist = {};
             $theScope.othersWishlists = {};
 
             var indexRef = firebase.database().ref().child("users/"+uid+"/groups");
@@ -125,7 +125,7 @@ angular
 
             firebase.database().ref().child("users/"+uid+"/activeGroup")
                 .on('value', function(snap) {
-                    console.log("activeGroup: "+snap.val());
+                    $theScope.myWishlist = new Wishlist(snap.val(), uid, $scope);
                 });
 
             var ref = firebase.database().ref().child("users").child(uid);

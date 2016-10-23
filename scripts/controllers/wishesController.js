@@ -8,4 +8,29 @@ angular
         function($scope, $rootScope, Auth, $state, $stateParams, $firebaseArray, $firebaseObject) {
             $rootScope.menuTitle = "My Wishlist";
 
+            $scope.showLink = false;
+            $scope.showForm = false;
+            $scope.toggleLink = function() {
+                $scope.showLink = !$scope.showLink;
+            }
+            
+            $scope.createWish = function() {
+                $scope.myWishlist.addWish($scope.newWish);
+                $scope.showForm = false;
+
+                $scope.newWish.name = "";
+                $scope.newWish.link = "";
+            }
+
+            $scope.cancel = function() {
+                $scope.showForm = false;
+
+                $scope.newWish.name = "";
+                $scope.newWish.link = "";
+            }
+
+            $scope.showNewWish = function() {
+                $scope.showForm = true;
+            }
+
         }]);

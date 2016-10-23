@@ -1,18 +1,18 @@
 <md-content layout-padding ng-show="action == 'create'">
     <form name="newGroup" ng-submit="createGroup()" class="md-whiteframe-4dp sheet">
 
-            <md-input-container class="md-block">
-                <label>Name</label>
-                <input required name="newName" ng-model="newName">
-                <div ng-messages="newGroup.newName.$error">
-                    <div ng-message="required">This is required.</div>
-                </div>
-            </md-input-container>
+        <md-input-container class="md-block">
+            <label>Name</label>
+            <input required name="newName" ng-model="newName">
+            <div ng-messages="newGroup.newName.$error">
+                <div ng-message="required">This is required.</div>
+            </div>
+        </md-input-container>
 
-            <md-input-container class="md-block">
-                <label>Description</label>
-                <input name="descr" ng-model="newDescription">
-            </md-input-container>
+        <md-input-container class="md-block">
+            <label>Description</label>
+            <input name="descr" ng-model="newDescription">
+        </md-input-container>
 
         <div>
             <md-button type="submit" class="formButton">Create</md-button>
@@ -50,17 +50,26 @@
                 flex-sm="100"
                 flex-xs="100"
                 flex-gt-sm="45">
-            <md-toolbar class="md-toolbar-tools md-toolbar-small md-hue-2">
+            <md-toolbar class="md-toolbar-tools md-toolbar-small md-hue-2" layout="row" style="padding-right: 20px">
                 <span>{{ g.name }}</span>
                 <span flex></span>
-                <md-button class="md-raised" aria-label="Edit group"  ng-click="inviteGroup(id, g.name)" ng-show="g.users[$root.firebaseUser.uid].type === 'admin'">
-                    Invite
+                <md-button aria-label="Invite" class="md-fab md-raised md-mini" ng-click="inviteGroup(id, g.name)" ng-show="g.users[$root.firebaseUser.uid].type === 'admin'">
+                    <md-tooltip md-direction="down">
+                        Invite
+                    </md-tooltip>
+                    <i class="fa fa-envelope" aria-hidden="true"></i>
                 </md-button>
-                <md-button class="md-raised" aria-label="Edit group"  ui-sref="groups({action: 'edit', gid: id})" ng-show="g.users[$root.firebaseUser.uid].type === 'admin'">
-                    Edit group
+                <md-button aria-label="Edit group" class="md-fab md-raised md-mini" ui-sref="groups({action: 'edit', gid: id})" ng-show="g.users[$root.firebaseUser.uid].type === 'admin'">
+                    <md-tooltip md-direction="down">
+                        Edit
+                    </md-tooltip>
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
                 </md-button>
-                <md-button class="md-raised" aria-label="Leave group"  ng-click="leaveGroup(id, $event)">
-                    Leave group
+                <md-button aria-label="Leave group" class="md-fab md-raised md-mini" ng-click="leaveGroup(id, $event)">
+                    <md-tooltip md-direction="down">
+                        Leave
+                    </md-tooltip>
+                    <i class="fa fa-sign-out" aria-hidden="true"></i>
                 </md-button>
             </md-toolbar>
             <div class="content">
