@@ -39,8 +39,8 @@
         <script src="scripts/controllers/appController.js"></script>
         <script src="scripts/controllers/mainController.js"></script>
         <script src="scripts/controllers/groupController.js"></script>
-        <script src="scripts/controllers/wishlistController.js"></script>
         <script src="scripts/controllers/wishesController.js"></script>
+        <script src="scripts/controllers/wishlistController.js"></script>
         <script src="scripts/menu/link.directive.js"></script>
         <script src="scripts/menu/toggle.directive.js"></script>
     </head>
@@ -61,11 +61,8 @@
                     <li ng-show="userObj.activeGroup">
                         <menu-link section="{name: 'My Wishlist', state: 'myWishlist', type: 'link'}"></menu-link>
                     </li>
-                    <li ng-show="userObj.activeGroup">
-                        <menu-link section="{name: 'Contact', state: 'contact', type: 'link'}"></menu-link>
-                    </li>
-                    <li ng-repeat="list in wishlists">
-                        <menu-link section="{name: list.name, state: 'contact', type: 'link', img: list.img}"></menu-link>
+                    <li ng-repeat="(uid, list) in wishlists">
+                        <menu-link section="{name: list.name, state: 'wishlist({user: \''+uid+'\'})', type: 'link', img: list.img}"></menu-link>
                     </li>
                 </ul>
             </md-content>

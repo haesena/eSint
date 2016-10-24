@@ -22,11 +22,6 @@
                                 <p ng-show="wish.linkURL"><a href="{{ wish.linkURL }}" target="_blank">{{ wish.linkTitle || wish.linkURL }}</a></p>
                             </div>
                             <md-divider ng-if="!$last"></md-divider>
-                            <!--<img ng-src="{{todos[0].face}}?20" class="md-avatar" alt="{{todos[0].who}}" />-->
-                            <!--<div class="md-list-item-text">-->
-                                <!---->
-                                <!---->
-                            <!--</div>-->
                         </md-list-item>
                     </md-list>
 
@@ -77,5 +72,4 @@
             </div>
         </md-whiteframe>
     </div>
-    {{ myWishlist.wishes | json }}
 </md-content>

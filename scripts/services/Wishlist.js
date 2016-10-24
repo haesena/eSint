@@ -6,6 +6,7 @@ angular
     .factory('Wishlist', function ($firebaseObject, $firebaseArray, $firebase, $timeout, $rootScope) {
 
         var myWishlist = false;
+        var takenFlags;
 
         var Wishlist = $firebaseObject.$extend({
             empty: function() {
@@ -15,6 +16,15 @@ angular
             set: function(path, value) {
                 var myRef = this.$ref();
                 myRef.child(path).set(value);
+            },
+
+            isTaken: function(wishId) {
+                return takenFlags[wishId] == true;
+            },
+
+            takeWish: function(wishId) {
+                var tfRef = takenFlags.$ref();
+                tfRef.child(wishId).set(true);
             },
 
             addWish: function(wish) {
@@ -41,6 +51,8 @@ angular
                         }
                         wishlist.set("img", $rootScope.firebaseUser.photoURL);
                     });
+            } else {
+                takenFlags = $firebaseObject(firebase.database().ref().child("takenFlag/"+gid+"/"+uid));
             }
 
             return wishlist;

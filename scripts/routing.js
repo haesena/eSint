@@ -86,6 +86,17 @@ angular
                         return Auth.$requireSignIn();
                     }],
                 }
+            })
+            .state("wishlist", {
+                name: 'wishlist',
+                url: '/wishlist/{user}',
+                controller  : 'wishlistController',
+                templateUrl : 'views/wishlist.html',
+                resolve: {
+                    "currentAuth": ["Auth", function(Auth) {
+                        return Auth.$requireSignIn();
+                    }]
+                }
             });
 
 }]);

@@ -126,6 +126,7 @@ angular
             firebase.database().ref().child("users/"+uid+"/activeGroup")
                 .on('value', function(snap) {
                     $theScope.myWishlist = new Wishlist(snap.val(), uid, $scope);
+                    $theScope.wishlists = {};
 
                     var listsRef = firebase.database().ref().child("wishlists/"+snap.val());
 

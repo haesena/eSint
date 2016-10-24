@@ -1,0 +1,39 @@
+
+<md-content>
+    <div layout="row" layout-margin layout-wrap layout-fill style="padding-bottom: 32px;" ng-cloak>
+        <md-whiteframe class="md-whiteframe-4dp sheet"
+                       flex-sm="100"
+                       flex-xs="100"
+                       flex-gt-sm="50"
+                       ng-show="list.name">
+            <md-toolbar class="md-toolbar-tools md-toolbar-small md-hue-2">
+                <span>{{ list.name }}</span>
+                <span flex></span>
+            </md-toolbar>
+            <div class="content">
+                <div ng-hide="list.wishes">
+                    This list is empty...
+                </div>
+
+                <div ng-show="list.wishes">
+                    <md-list class="md-dense" flex>
+                        <md-list-item ng-repeat="(wid, wish) in list.wishes" class="md-2-line">
+                            <div class="md-list-item-text">
+                                <span ng-class="{'wishTaken': list.isTaken(wid)}">{{ wish.name }}</span>
+                                <p ng-show="wish.linkURL" ng-class="{'wishTaken': list.isTaken(wid)}"><a href="{{ wish.linkURL }}" target="_blank">{{ wish.linkTitle || wish.linkURL }}</a></p>
+                                <span flex></span>
+                                <md-button aria-label="Take" class="md-secondary md-fab md-raised md-mini" ng-show="!list.isTaken(wid)" ng-click="list.takeWish(wid)">
+                                    <md-tooltip md-direction="left">
+                                        Mark as taken
+                                    </md-tooltip>
+                                    <i class="fa fa-gift fa-2" aria-hidden="true"></i>
+                                </md-button>
+                            </div>
+                            <md-divider ng-if="!$last"></md-divider>
+                        </md-list-item>
+                    </md-list>
+                </div>
+            </div>
+        </md-whiteframe>
+    </div>
+</md-content>

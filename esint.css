@@ -11,7 +11,6 @@
 .md-avatar-link {
     height: 30px;
     border-radius: 50%;
-    padding-top: 10px;
 }
 
 .display {
@@ -65,6 +64,11 @@ form.sheet > md-button {
 .fa-2 {
     font-size: 2em;
     height: auto;
+    padding-top:5px
+}
+
+.wishTaken {
+    text-decoration: line-through;
 }
 
 .md-toolbar-small {

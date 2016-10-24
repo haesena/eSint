@@ -4,16 +4,14 @@
 
 angular
     .module("eSint")
-    .controller('wishlistController', ["$scope", "$rootScope", "Auth", "$state", "$stateParams", "$firebaseArray", "$firebaseObject",
-        function($scope, $rootScope, Auth, $state, $stateParams, $firebaseArray, $firebaseObject) {
-            if($stateParams.user == "mine") {
-                $rootScope.menuTitle = "My Wishlist";
-            } else {
-                if($stateParams.user == "mine") {
-                    $rootScope.menuTitle = "My Wishlist";
-                }
-            }
+    .controller('wishlistController', ["$scope", "$rootScope", "Auth", "$state", "$stateParams", "$firebaseArray", "$firebaseObject", "Wishlist",
+        function($scope, $rootScope, Auth, $state, $stateParams, $firebaseArray, $firebaseObject, Wishlist) {
+            $rootScope.menuTitle = "Wishlist";
 
-            $rootScope.menuTitle = "Wishlists";
+            $scope.userObj.$loaded()
+                .then(function(list){
+                    console.log($scope.userObj.activeGroup);
+                    $scope.list = new Wishlist($scope.userObj.activeGroup, $stateParams.user, $scope);
+                });
 
         }]);
