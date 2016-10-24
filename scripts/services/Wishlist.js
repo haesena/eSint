@@ -39,6 +39,7 @@ angular
                         if(list.$value == null) {
                             wishlist.set("name", $rootScope.firebaseUser.displayName+"'s Wishlist");
                         }
+                        wishlist.set("img", $rootScope.firebaseUser.photoURL);
                     });
             }
 

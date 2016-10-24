@@ -64,6 +64,9 @@
                     <li ng-show="userObj.activeGroup">
                         <menu-link section="{name: 'Contact', state: 'contact', type: 'link'}"></menu-link>
                     </li>
+                    <li ng-repeat="list in wishlists">
+                        <menu-link section="{name: list.name, state: 'contact', type: 'link', img: list.img}"></menu-link>
+                    </li>
                 </ul>
             </md-content>
 

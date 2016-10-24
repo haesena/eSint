@@ -16,17 +16,15 @@ angular
             
             $scope.createWish = function() {
                 $scope.myWishlist.addWish($scope.newWish);
-                $scope.showForm = false;
-
-                $scope.newWish.name = "";
-                $scope.newWish.link = "";
+                $scope.cancel();
             }
 
             $scope.cancel = function() {
                 $scope.showForm = false;
 
                 $scope.newWish.name = "";
-                $scope.newWish.link = "";
+                $scope.newWish.linkTitle = "";
+                $scope.newWish.linkURL = "";
             }
 
             $scope.showNewWish = function() {

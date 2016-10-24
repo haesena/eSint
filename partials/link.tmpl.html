@@ -2,6 +2,8 @@
     ui-sref-active="active"
     ui-sref="{{section.state}}"
     ng-click="focusSection()">
+    <!--<img src="{{section.img}}" class="md-avatar-link" ng-show="section.img">-->
+    <md-icon md-src="{{section.img}}"></md-icon>
     <i class="{{section.icon}}" aria-hidden="true"></i>
     {{section | humanizeDoc}}
   <span  class="md-visually-hidden "

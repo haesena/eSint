@@ -109,7 +109,7 @@ angular
             $theScope = $scope;
             $theScope.userGroups = {};
             $theScope.myWishlist = {};
-            $theScope.othersWishlists = {};
+            $theScope.wishlists = {};
 
             var indexRef = firebase.database().ref().child("users/"+uid+"/groups");
 
@@ -126,6 +126,20 @@ angular
             firebase.database().ref().child("users/"+uid+"/activeGroup")
                 .on('value', function(snap) {
                     $theScope.myWishlist = new Wishlist(snap.val(), uid, $scope);
+
+                    var listsRef = firebase.database().ref().child("wishlists/"+snap.val());
+
+                    listsRef.on('child_added', function(indexSnap) {
+                        if(indexSnap.key != uid) {
+                            $theScope.wishlists[indexSnap.key] = new Wishlist(snap.val(), indexSnap.key, $scope);
+                        }
+                    });
+
+                    listsRef.on('child_removed', function(snap) {
+                        $timeout(function() {
+                            delete $theScope.wishlists[snap.key];
+                        });
+                    });
                 });
 
             var ref = firebase.database().ref().child("users").child(uid);

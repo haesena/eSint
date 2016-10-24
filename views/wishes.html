@@ -16,9 +16,12 @@
 
                 <div ng-show="myWishlist.wishes">
                     <md-list class="md-dense" flex>
-                        <md-list-item ng-repeat="wish in myWishlist.wishes">
-                            <p>{{ wish.name }}</p>
-                            <p ng-show="wish.link"><a href="{{ wish.link }}" target="_blank">Link</a></p>
+                        <md-list-item ng-repeat="wish in myWishlist.wishes" class="md-2-line">
+                            <div class="md-list-item-text">
+                                <span>{{ wish.name }}</span>
+                                <p ng-show="wish.linkURL"><a href="{{ wish.linkURL }}" target="_blank">{{ wish.linkTitle || wish.linkURL }}</a></p>
+                            </div>
+                            <md-divider ng-if="!$last"></md-divider>
                             <!--<img ng-src="{{todos[0].face}}?20" class="md-avatar" alt="{{todos[0].who}}" />-->
                             <!--<div class="md-list-item-text">-->
                                 <!---->
@@ -52,13 +55,19 @@
                         </md-button>
                     </div>
 
-                    <md-input-container md-no-float class="md-block" ng-show="showLink">
-                        <label>Link</label>
-                        <input ng-model="newWish.link" type="url" name="link">
-                        <div ng-messages="wish.link.$error">
-                            <div ng-message="url">Not a valid URL (ex: http://google.com, https://amazon.com).</div>
-                        </div>
-                    </md-input-container>
+                    <div layout="row" ng-show="showLink">
+                        <md-input-container md-no-float class="md-block" flex=33>
+                            <label>Title</label>
+                            <input ng-model="newWish.linkTitle" name="linkTitle">
+                        </md-input-container>
+                        <md-input-container md-no-float class="md-block" flex=66>
+                            <label>Link</label>
+                            <input ng-model="newWish.linkURL" type="url" name="linkURL">
+                            <div ng-messages="wish.linkURL.$error">
+                                <div ng-message="url">Not a valid URL (ex: http://google.com, https://amazon.com).</div>
+                            </div>
+                        </md-input-container>
+                    </div>
 
                     <div>
                         <md-button type="submit">Submit</md-button>

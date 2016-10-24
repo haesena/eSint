@@ -26,7 +26,7 @@
 <div ng-show="userObj.isLoaded()">
     Hello <b>{{ userObj.name }}</b>!
     <md-content role="navigation" ng-show="userObj.activeGroup">
-        <p ng-hide="myWishlist.length">
+        <p ng-hide="myWishlist.wishes">
             Start by creating your wishlist!
         </p>
     </md-content>
@@ -34,4 +34,6 @@
         <p>You're in no group yet :(</p>
         <p>Start by <a ui-sref="groups({action: 'create'})">creating a group</a></p>
     </md-content>
+
+    {{ wishlists | json }}
 </div>

@@ -8,6 +8,12 @@
     border-radius: 50%;
 }
 
+.md-avatar-link {
+    height: 30px;
+    border-radius: 50%;
+    padding-top: 10px;
+}
+
 .display {
     font-family: Ubuntu, sans-serif;
     font-size: 14px;
