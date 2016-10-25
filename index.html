@@ -35,12 +35,14 @@
         <script src="scripts/factory.js"></script>
         <script src="scripts/services/UserObj.js"></script>
         <script src="scripts/services/Wishlist.js"></script>
+        <script src="scripts/services/Giftlist.js"></script>
         <script src="scripts/routing.js"></script>
         <script src="scripts/controllers/appController.js"></script>
         <script src="scripts/controllers/mainController.js"></script>
         <script src="scripts/controllers/groupController.js"></script>
         <script src="scripts/controllers/wishesController.js"></script>
         <script src="scripts/controllers/wishlistController.js"></script>
+        <script src="scripts/controllers/giftsController.js"></script>
         <script src="scripts/menu/link.directive.js"></script>
         <script src="scripts/menu/toggle.directive.js"></script>
     </head>
@@ -61,6 +63,9 @@
                     <li ng-show="userObj.activeGroup">
                         <menu-link section="{name: 'My Wishlist', state: 'myWishlist', type: 'link'}"></menu-link>
                     </li>
+                    <li ng-show="userObj.activeGroup">
+                        <menu-link section="{name: 'My Gifts', state: 'gifts', type: 'link'}"></menu-link>
+                    </li>
                     <li ng-repeat="(uid, list) in wishlists">
                         <menu-link section="{name: list.name, state: 'wishlist({user: \''+uid+'\'})', type: 'link', img: list.img}"></menu-link>
                     </li>
@@ -77,8 +82,7 @@
                         class="md-icon-button"
                         aria-label="Settings"
                         ng-click='toggleSideNav()'
-                        ng-show="userObj.isLoaded()"
-                        ng-hide="$mdMedia('gt-md') || $mdSidenav('left').isOpen()">
+                        ng-show="userObj.isLoaded() && !$mdMedia('gt-md')">
                         <md-icon md-svg-icon="img/menu.svg"></md-icon>
                     </md-button>
                     <h2>

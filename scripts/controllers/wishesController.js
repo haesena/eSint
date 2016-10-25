@@ -4,12 +4,14 @@
 
 angular
     .module("eSint")
-    .controller('wishesController', ["$scope", "$rootScope", "Auth", "$state", "$stateParams", "$firebaseArray", "$firebaseObject",
-        function($scope, $rootScope, Auth, $state, $stateParams, $firebaseArray, $firebaseObject) {
+    .controller('wishesController', ["$scope", "$rootScope", "$firebaseArray", "$firebaseObject", "$timeout",
+        function($scope, $rootScope, $firebaseArray, $firebaseObject, $timeout) {
             $rootScope.menuTitle = "My Wishlist";
 
             $scope.showLink = false;
             $scope.showForm = false;
+            $scope.editMode = false;
+
             $scope.toggleLink = function() {
                 $scope.showLink = !$scope.showLink;
             }
@@ -29,6 +31,23 @@ angular
 
             $scope.showNewWish = function() {
                 $scope.showForm = true;
+            }
+
+            $scope.toggleEdit = function() {
+                if($scope.editMode) {
+                    $scope.editMode = false;
+
+                    $scope.unbindEditName();
+                    $scope.unbindEditName = null;
+                } else {
+                    $scope.editMode = true;
+
+                    $scope.myWishlist
+                        .$bindTo($scope, "editList")
+                        .then(function(unbind) {
+                            $scope.unbindEditName = unbind;
+                        });
+                }
             }
 
         }]);

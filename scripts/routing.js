@@ -75,6 +75,17 @@ angular
                         return Auth.$requireSignIn();
                     }]
                 }
+            })
+            .state("gifts", {
+                name: 'gifts',
+                url: '/gifts',
+                controller  : 'giftsController',
+                templateUrl : 'views/gifts.html',
+                resolve: {
+                    "currentAuth": ["Auth", function(Auth) {
+                        return Auth.$requireSignIn();
+                    }]
+                }
             });
 
 }]);

@@ -50,7 +50,7 @@
                 flex-sm="100"
                 flex-xs="100"
                 flex-gt-sm="45">
-            <md-toolbar class="md-toolbar-tools md-toolbar-small md-hue-2" layout="row" style="padding-right: 20px">
+            <md-toolbar class="md-toolbar-tools md-toolbar-small md-hue-2" layout="row">
                 <span>{{ g.name }}</span>
                 <span flex></span>
                 <md-button aria-label="Invite" class="md-fab md-raised md-mini" ng-click="inviteGroup(id, g.name)" ng-show="g.users[$root.firebaseUser.uid].type === 'admin'">

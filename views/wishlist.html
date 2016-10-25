@@ -22,11 +22,14 @@
                                 <span ng-class="{'wishTaken': list.isTaken(wid)}">{{ wish.name }}</span>
                                 <p ng-show="wish.linkURL" ng-class="{'wishTaken': list.isTaken(wid)}"><a href="{{ wish.linkURL }}" target="_blank">{{ wish.linkTitle || wish.linkURL }}</a></p>
                                 <span flex></span>
-                                <md-button aria-label="Take" class="md-secondary md-fab md-raised md-mini" ng-show="!list.isTaken(wid)" ng-click="list.takeWish(wid)">
+                                <md-button aria-label="Take" class="md-fab md-raised md-mini md-secondary" ng-show="list.wishActionImg(wid)"
+                                           ng-click="list.wishAction(wid)">
+
                                     <md-tooltip md-direction="left">
                                         Mark as taken
                                     </md-tooltip>
-                                    <i class="fa fa-gift fa-2" aria-hidden="true"></i>
+
+                                    <i ng-class="list.wishActionImg(wid)" aria-hidden="true"></i>
                                 </md-button>
                             </div>
                             <md-divider ng-if="!$last"></md-divider>

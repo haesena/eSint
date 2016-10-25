@@ -128,13 +128,13 @@ angular
                 .on('value', function(snap) {
                     $theScope.myWishlist = new Wishlist(snap.val(), uid, $scope);
                     $theScope.wishlists = {};
-                    $theScope.myGifts = {};
+                    $theScope.myGifts = $firebaseObject(firebase.database().ref().child("gifts/"+snap.val()+"/"+uid));
 
                     var listsRef = firebase.database().ref().child("wishlists/"+snap.val());
 
                     listsRef.on('child_added', function(indexSnap) {
                         if(indexSnap.key != uid) {
-                            $theScope.wishlists[indexSnap.key] = new Wishlist(snap.val(), indexSnap.key, $scope);
+                            $theScope.wishlists[indexSnap.key] = $firebaseObject(firebase.database().ref().child("wishlists/"+snap.val()+"/"+indexSnap.key));
                         }
                     });
 
@@ -144,7 +144,6 @@ angular
                         });
                     });
 
-                    var giftsRef = firebase.database().ref().child("gifts/"+snap.val()+"/"+uid);
                 });
 
             var ref = firebase.database().ref().child("users").child(uid);

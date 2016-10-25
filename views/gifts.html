@@ -1,0 +1,31 @@
+
+<md-content>
+    <div layout="row" layout-margin layout-wrap layout-fill style="padding-bottom: 32px;" ng-cloak>
+        <md-whiteframe class="md-whiteframe-4dp sheet"
+                       flex-sm="100"
+                       flex-xs="100"
+                       flex-gt-sm="50">
+            <md-toolbar class="md-toolbar-tools md-toolbar-small md-hue-2">
+                <span>My Gifts</span>
+                <span flex></span>
+            </md-toolbar>
+            <div class="content">
+                <div ng-show="list.empty()">
+                    Wishes from other peoples wishlists that you marked as taken will appear here.
+                </div>
+                <div ng-show="list">
+                    <md-list class="md-dense">
+                        <md-list-item ng-repeat="(gid, gift) in list" class="md-2-line">
+                            <img src="{{ gift.userPhoto }}" class="md-avatar"/>
+                            <div class="md-list-item-text">
+                                <span>{{ gift.name }}</span>
+                                <p>For: {{ gift.user }}</p>
+                            </div>
+                            <md-divider ng-if="!$last"></md-divider>
+                        <pmd-list-item>
+                    </md-list>
+                </div>
+            </div>
+        </md-whiteframe>
+    </div>
+</md-content>

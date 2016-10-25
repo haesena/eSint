@@ -6,8 +6,17 @@
                        flex-xs="100"
                        flex-gt-sm="50">
             <md-toolbar class="md-toolbar-tools md-toolbar-small md-hue-2">
-                <span>{{ myWishlist.name }}</span>
+                <span ng-hide="editMode">{{ myWishlist.name }}</span>
+                <md-input-container flex md-no-float class="md-primary md-hue-3 input-toolbar" ng-show="editMode">
+                    <input ng-model="editList.name">
+                </md-input-container>
                 <span flex></span>
+                <md-button aria-label="Edit Name" class="md-fab md-raised md-mini" ng-click="toggleEdit()">
+                    <md-tooltip md-direction="left">
+                        Edit Name
+                    </md-tooltip>
+                    <i ng-class="{'fa fa-check': editMode, 'fa fa-pencil': !editMode}" aria-hidden="true"></i>
+                </md-button>
             </md-toolbar>
             <div class="content">
                 <div ng-hide="myWishlist.wishes">
@@ -63,6 +72,7 @@
                             </div>
                         </md-input-container>
                     </div>
+                    <p>Note that once you saved a wish, you will not be able to delete it. Another user might already have marked this gift as taken...</p>
 
                     <div>
                         <md-button type="submit">Submit</md-button>
