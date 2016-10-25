@@ -5,7 +5,7 @@
 // Initialize Firebase
 var config = {
     apiKey: "AIzaSyBX-NnuP-jopNKyF4-xqxpQLLsBnjsb-aw",
-    authDomain: "esint-e6f08.firebaseapp.com",
+    authDomain: "e-sint.haesen.family",
     databaseURL: "https://esint-e6f08.firebaseio.com",
     storageBucket: "esint-e6f08.appspot.com",
     messagingSenderId: "689592537822"

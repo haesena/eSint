@@ -110,6 +110,7 @@ angular
             $theScope.userGroups = {};
             $theScope.myWishlist = {};
             $theScope.wishlists = {};
+            $theScope.myGifts = {};
 
             var indexRef = firebase.database().ref().child("users/"+uid+"/groups");
 
@@ -127,6 +128,7 @@ angular
                 .on('value', function(snap) {
                     $theScope.myWishlist = new Wishlist(snap.val(), uid, $scope);
                     $theScope.wishlists = {};
+                    $theScope.myGifts = {};
 
                     var listsRef = firebase.database().ref().child("wishlists/"+snap.val());
 
@@ -141,6 +143,8 @@ angular
                             delete $theScope.wishlists[snap.key];
                         });
                     });
+
+                    var giftsRef = firebase.database().ref().child("gifts/"+snap.val()+"/"+uid);
                 });
 
             var ref = firebase.database().ref().child("users").child(uid);

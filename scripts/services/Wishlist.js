@@ -7,6 +7,7 @@ angular
 
         var myWishlist = false;
         var takenFlags;
+        var giftsRef;
 
         var Wishlist = $firebaseObject.$extend({
             empty: function() {

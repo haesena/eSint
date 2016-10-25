@@ -31,28 +31,6 @@ angular
                     }]
                 }
             })
-            .state("about", {
-                name: 'about',
-                url: '/about',
-                controller  : 'aboutController',
-                templateUrl : 'views/about.html',
-                resolve: {
-                    "currentAuth": ["Auth", function(Auth) {
-                        return Auth.$requireSignIn();
-                    }]
-                }
-            })
-            .state("contact", {
-                name: 'contact',
-                url: '/contact',
-                controller  : 'contactController',
-                templateUrl : 'views/contact.html',
-                resolve: {
-                    "currentAuth": ["Auth", function(Auth) {
-                        return Auth.$requireSignIn();
-                    }]
-                }
-            })
             .state("groups", {
                 name: 'groups',
                 url: '/groups/{action}?gid',
