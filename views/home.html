@@ -1,4 +1,10 @@
-<div ng-hide="userObj.isLoaded()">
+<p>
+    Welcome to eSint, the online wishlist manager.
+</p>
+
+<md-progress-circular md-mode="indeterminate" ng-show="invite && !inviteLoaded"></md-progress-circular>
+
+<div ng-hide="userObj.isLoaded() || (invite && !inviteLoaded)">
 
     <div ng-show="invite.userName">
         <md-content role="navigation">

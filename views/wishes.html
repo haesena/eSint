@@ -1,5 +1,6 @@
 
-<md-content>
+<md-content ng-controller="wishesController as demo">
+
     <div layout="row" layout-margin layout-wrap layout-fill style="padding-bottom: 32px;" ng-cloak>
         <md-whiteframe class="md-whiteframe-4dp sheet"
                        flex-sm="100"
@@ -25,16 +26,81 @@
 
                 <div ng-show="myWishlist.wishes">
                     <md-list class="md-dense" flex>
-                        <md-list-item ng-repeat="wish in myWishlist.wishes" class="md-2-line">
-                            <div class="md-list-item-text">
-                                <span>{{ wish.name }}</span>
-                                <p ng-show="wish.linkURL"><a href="{{ wish.linkURL }}" target="_blank">{{ wish.linkTitle || wish.linkURL }}</a></p>
-                            </div>
-                            <md-divider ng-if="!$last"></md-divider>
-                        </md-list-item>
+                        <div  ng-repeat="(wid, wish) in myWishlist.wishes">
+                            <md-list-item class="md-2-line" ng-hide="editWishId">
+                                <div class="md-list-item-text">
+                                    <span>{{ wish.name }}</span>
+                                    <p ng-show="wish.linkURL"><a href="{{ wish.linkURL }}" target="_blank">{{ wish.linkTitle || wish.linkURL }}</a></p>
+                                </div>
+                                <md-fab-speed-dial md-open="demo.isOpen[wid]" md-direction="left"
+                                                   class="md-scale">
+                                    <md-fab-trigger>
+                                        <md-button aria-label="menu" class="md-fab md-mini md-primary">
+                                            <md-tooltip md-direction="down">
+                                                Options
+                                            </md-tooltip>
+                                            <i class="fa fa-bars" aria-hidden="true"></i>
+                                        </md-button>
+                                    </md-fab-trigger>
+
+                                    <md-fab-actions>
+                                        <md-button aria-label="Edit" class="md-fab md-raised md-mini" ng-click="toggleEditWish(wid)">
+                                            <md-tooltip md-direction="down">
+                                                Edit Wish
+                                            </md-tooltip>
+                                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                                        </md-button>
+                                        <md-button aria-label="Delete" class="md-fab md-raised md-mini" ng-click="deleteWish(wid)">
+                                            <md-tooltip md-direction="down">
+                                                Delete Wish
+                                            </md-tooltip>
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                        </md-button>
+                                    </md-fab-actions>
+                                </md-fab-speed-dial>
+                            </md-list-item>
+
+                            <form name="editWishF" ng-show="wid === editWishId" ng-submit="toggleEditWish(wid)">
+                                <div layout="row">
+                                    <md-input-container class="md-block" flex>
+                                        <label>Wish</label>
+                                        <input required ng-model="editWish.name" name="editName">
+                                        <div ng-messages="editWishF.editName.$error">
+                                            <div ng-message="required">This is required.</div>
+                                        </div>
+                                    </md-input-container>
+                                    <md-button class="md-fab md-primary md-mini" aria-label="Link" ng-click="toggleEditLink()">
+                                        <md-tooltip md-direction="left">
+                                            Add link
+                                        </md-tooltip>
+                                        <i class="fa fa-link" aria-hidden="true"></i>
+                                    </md-button>
+                                </div>
+
+                                <div layout="row" ng-show="showEditLink">
+                                    <md-input-container md-no-float class="md-block" flex=33>
+                                        <label>Title</label>
+                                        <input ng-model="editWish.linkTitle" name="editLinkTitle">
+                                    </md-input-container>
+                                    <md-input-container md-no-float class="md-block" flex=66>
+                                        <label>Link</label>
+                                        <input ng-model="editWish.linkURL" type="url" name="editLinkURL">
+                                        <div ng-messages="editWishF.editLinkURL.$error">
+                                            <div ng-message="url">Not a valid URL (ex: http://google.com, https://amazon.com).</div>
+                                        </div>
+                                    </md-input-container>
+                                </div>
+                                <div>
+                                    <md-button type="submit">Submit</md-button>
+                                    <md-button ng-click="cancelEditWish()">Cancel</md-button>
+                                </div>
+                            </form>
+
+                            <md-divider ng-if="!$last" ng-hide="editWishId"></md-divider>
+                        </div>
                     </md-list>
 
-                    <md-button class="md-fab md-primary md-mini" aria-label="Link" ng-click="showForm = true;" ng-hide="showForm">
+                    <md-button class="md-fab md-primary md-mini" aria-label="Link" ng-click="showForm = true;" ng-hide="showForm || editWishId">
                         <md-tooltip md-direction="right">
                             New wish
                         </md-tooltip>

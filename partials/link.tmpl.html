@@ -2,10 +2,9 @@
     ui-sref-active="active"
     ui-sref="{{section.state}}"
     ng-click="focusSection()">
-    <!--<img src="{{section.img}}" class="md-avatar-link" ng-show="section.img">-->
-    <!--<md-icon md-src="{{section.img}}"></md-icon>-->
+    <img src="{{section.img}}" class="md-avatar-link" ng-show="section.img">
     <i class="{{section.icon}}" aria-hidden="true"></i>
-    {{section | humanizeDoc}}
+    <span ng-class="{'link-with-img': section.img}">{{section | humanizeDoc}}</span>
   <span  class="md-visually-hidden "
          ng-if="isSelected()">
     current page

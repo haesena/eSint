@@ -22,6 +22,11 @@ angular
             if($rootScope.inviteId !== undefined) {
                 var iRef = firebase.database().ref().child("invites");
                 $scope.invite = $firebaseObject(iRef.child($rootScope.inviteId));
+                $scope.invite
+                    .$loaded()
+                    .then(function() {
+                        $scope.inviteLoaded = true;
+                    });
 
             } else {
                 $scope.invite = undefined;
